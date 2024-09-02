@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gym_manager/utilities/custom_button.dart';
+
+import '../../../utilities/custom_button.dart';
 
 class GymAccounts extends StatefulWidget {
   const GymAccounts({Key? key}) : super(key: key);

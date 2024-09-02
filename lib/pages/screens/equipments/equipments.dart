@@ -132,8 +132,9 @@ class _GymEquipmentsState extends State<GymEquipments> {
                       dateController.clear();
                       warrantyController.clear();
                       amountController.clear();
-                      if (!mounted) return;
-                      Navigator.pop(context);
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                      }
                     },
                   ),
                   const SizedBox(height: 10),

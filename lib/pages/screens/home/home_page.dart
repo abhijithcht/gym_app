@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utilities/custom_card.dart';
@@ -76,9 +75,7 @@ class _GymHomeState extends State<GymHome> {
       trainersCount = querySnapshot.size;
       setState(() {});
     } catch (error) {
-      if (kDebugMode) {
-        print('Error fetching trainers count: $error');
-      }
+      print('Error fetching trainers count: $error');
     }
   }
 
@@ -89,9 +86,7 @@ class _GymHomeState extends State<GymHome> {
       membersCount = querySnapshot.size;
       setState(() {});
     } catch (error) {
-      if (kDebugMode) {
-        print('Error fetching members count: $error');
-      }
+      print('Error fetching members count: $error');
     }
   }
 
@@ -102,9 +97,7 @@ class _GymHomeState extends State<GymHome> {
       equipmentCount = querySnapshot.size;
       setState(() {});
     } catch (error) {
-      if (kDebugMode) {
-        print('Error fetching equipment count: $error');
-      }
+      print('Error fetching equipment count: $error');
     }
   }
 
@@ -119,9 +112,7 @@ class _GymHomeState extends State<GymHome> {
         totalQuantity += quantity;
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('Error calculating total quantity: $error');
-      }
+      print('Error calculating total quantity: $error');
     }
     return totalQuantity;
   }
@@ -137,9 +128,7 @@ class _GymHomeState extends State<GymHome> {
         totalPurchase += amount;
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('Error calculating total amount: $error');
-      }
+      print('Error calculating total amount: $error');
     }
     return totalPurchase;
   }
@@ -155,9 +144,7 @@ class _GymHomeState extends State<GymHome> {
         totalSalary += salary;
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('Error calculating total salary: $error');
-      }
+      print('Error calculating total salary: $error');
     }
     return totalSalary;
   }
@@ -173,9 +160,7 @@ class _GymHomeState extends State<GymHome> {
         totalFee += fees;
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('Error calculating total fees: $error');
-      }
+      print('Error calculating total fees: $error');
     }
     return totalFee;
   }
@@ -191,9 +176,7 @@ class _GymHomeState extends State<GymHome> {
         totalManualIncome += manualIncome;
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('Error calculating total manual income: $error');
-      }
+      print('Error calculating total manual income: $error');
     }
     return totalManualIncome;
   }
@@ -209,9 +192,7 @@ class _GymHomeState extends State<GymHome> {
         totalManualExpense += manualExpense;
       }
     } catch (error) {
-      if (kDebugMode) {
-        print('Error calculating total manual expense: $error');
-      }
+      print('Error calculating total manual expense: $error');
     }
     return totalManualExpense;
   }
@@ -221,9 +202,7 @@ class _GymHomeState extends State<GymHome> {
       totalIncome = totalManualIncome + totalFee;
       setState(() {});
     } catch (error) {
-      if (kDebugMode) {
-        print('Error calculating total income: $error');
-      }
+      print('Error calculating total income: $error');
     }
     return totalIncome;
   }
@@ -233,9 +212,7 @@ class _GymHomeState extends State<GymHome> {
       totalExpense = totalManualExpense + totalSalary + totalPurchase;
       setState(() {});
     } catch (error) {
-      if (kDebugMode) {
-        print('Error calculating total income: $error');
-      }
+      print('Error calculating total income: $error');
     }
     return totalExpense;
   }

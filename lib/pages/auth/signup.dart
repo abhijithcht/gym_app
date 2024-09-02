@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gym_app/constants/text_string.dart';
 
 import '../../utilities/custom_button.dart';
 import '../../utilities/custom_snack.dart';
@@ -18,21 +19,13 @@ class _SignUpPageState extends State<SignUpPage> {
   final formKey = GlobalKey<FormState>();
   final auth = FirebaseAuth.instance;
   final db = FirebaseFirestore.instance;
-  final String adminCollection = 'admin';
 
-  final TextEditingController loginEmail = TextEditingController();
-  final TextEditingController loginPassword = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
-  final TextEditingController ownerNameController = TextEditingController();
-  final TextEditingController gymNameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-
-  // Constants for snackbar messages
-  final String passwordMismatchError = 'Passwords do not match.';
-  final String weakPasswordError = 'Weak password.';
-  final String emailInUseError = 'The account already exists for that email.';
-  final String registrationError = 'Error during registration: ';
-  final String userRegistered = 'User is Registered';
+  final TextEditingController owner = TextEditingController();
+  final TextEditingController gym = TextEditingController();
+  final TextEditingController description = TextEditingController();
 
   // Show SnackBar with a given message
   void _showSnackBar(String message) {
@@ -44,25 +37,25 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> signup() async {
-    if (loginPassword.text != confirmPassword.text) {
-      _showSnackBar(passwordMismatchError);
+    if (password.text != confirmPassword.text) {
+      _showSnackBar(GymText.passwordMismatchError);
       return;
     }
 
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-        email: loginEmail.text,
-        password: loginPassword.text,
+        email: email.text,
+        password: password.text,
       )
           .then((value) {
-        _showSnackBar(userRegistered);
-        db.collection(adminCollection).add({
-          'owner': ownerNameController.text,
-          'gym': gymNameController.text,
-          'description': descriptionController.text,
-          'email': loginEmail.text,
-          'uid': auth.currentUser!.uid
+        _showSnackBar(GymText.userRegistered);
+        db.collection(GymText.adminCollection).add({
+          GymText.owner: owner.text,
+          GymText.gym: gym.text,
+          GymText.description: description.text,
+          GymText.email: email.text,
+          GymText.uid: auth.currentUser!.uid
         });
       });
       _clearTextFields();
@@ -70,33 +63,32 @@ class _SignUpPageState extends State<SignUpPage> {
       if (!mounted) return;
       await Navigator.pushNamed(context, '/homepage');
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        _showSnackBar(weakPasswordError);
-      } else if (e.code == 'email-already-in-use') {
-        _showSnackBar(emailInUseError);
+      if (e.code == GymText.weakPasswordError) {
+        _showSnackBar(GymText.weakPasswordError);
+      } else if (e.code == GymText.emailInUse) {
+        _showSnackBar(GymText.emailInUseError);
       } else {
-        _showSnackBar(registrationError + e.toString());
+        _showSnackBar(GymText.registrationError + e.toString());
       }
     } catch (e) {
-      _showSnackBar(registrationError + e.toString());
+      _showSnackBar(GymText.registrationError + e.toString());
     }
   }
 
   String? _validateInput(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please fill the field.';
+      return GymText.fillFields;
     }
     return null;
   }
 
-  // Clear text fields
   void _clearTextFields() {
-    loginEmail.clear();
-    loginPassword.clear();
+    email.clear();
+    password.clear();
     confirmPassword.clear();
-    ownerNameController.clear();
-    gymNameController.clear();
-    descriptionController.clear();
+    owner.clear();
+    gym.clear();
+    description.clear();
   }
 
   @override
@@ -104,85 +96,97 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       body: Form(
         key: formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomTextInputField(
-              controller: ownerNameController,
-              validator: _validateInput,
-              hintText: 'Owner Name',
-              prefixIcon: Icons.person,
-              keyboardType: TextInputType.name,
-            ),
-            CustomTextInputField(
-              controller: gymNameController,
-              validator: _validateInput,
-              hintText: 'Gym Name',
-              prefixIcon: Icons.fitness_center_rounded,
-            ),
-            CustomTextInputField(
-              controller: descriptionController,
-              validator: _validateInput,
-              hintText: 'Description',
-              prefixIcon: Icons.description_rounded,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(200),
-              ],
-            ),
-            CustomTextInputField(
-              controller: loginEmail,
-              validator: _validateInput,
-              hintText: 'Email',
-              prefixIcon: Icons.email,
-              keyboardType: TextInputType.emailAddress,
-              textCapitalization: TextCapitalization.none,
-            ),
-            CustomTextInputField(
-              controller: loginPassword,
-              validator: _validateInput,
-              hintText: 'Password',
-              prefixIcon: Icons.lock,
-              obscureText: true,
-            ),
-            CustomTextInputField(
-              controller: confirmPassword,
-              validator: _validateInput,
-              hintText: 'Confirm Password',
-              prefixIcon: Icons.lock,
-              obscureText: true,
-              textInputAction: TextInputAction.done,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            CustomButton(
-              text: 'Sign Up',
-              onPressed: () async {
-                if (formKey.currentState!.validate()) {
-                  signup();
-                }
-              },
-            ),
-            const SizedBox(height: 12),
-            Row(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Already a Member?',
-                  style: TextStyle(fontSize: 16),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/signin');
-                  },
-                  child: const Text(
-                    'Login Now',
-                    style: TextStyle(fontSize: 16),
+                const Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    GymText.helloSignup,
+                    style: TextStyle(fontSize: 35),
                   ),
+                ),
+                const SizedBox(height: 20),
+                CustomTextInputField(
+                  controller: owner,
+                  validator: _validateInput,
+                  hintText: GymText.ownerName,
+                  prefixIcon: Icons.person,
+                  keyboardType: TextInputType.name,
+                ),
+                CustomTextInputField(
+                  controller: gym,
+                  validator: _validateInput,
+                  hintText: GymText.gymName,
+                  prefixIcon: Icons.fitness_center_rounded,
+                ),
+                CustomTextInputField(
+                  controller: description,
+                  validator: _validateInput,
+                  hintText: GymText.descriptionName,
+                  prefixIcon: Icons.description_rounded,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(200),
+                  ],
+                ),
+                CustomTextInputField(
+                  controller: email,
+                  validator: _validateInput,
+                  hintText: GymText.emailCaps,
+                  prefixIcon: Icons.email,
+                  keyboardType: TextInputType.emailAddress,
+                  textCapitalization: TextCapitalization.none,
+                ),
+                CustomTextInputField(
+                  controller: password,
+                  validator: _validateInput,
+                  hintText: GymText.password,
+                  prefixIcon: Icons.lock,
+                  obscureText: true,
+                ),
+                CustomTextInputField(
+                  controller: confirmPassword,
+                  validator: _validateInput,
+                  hintText: GymText.confirmPassword,
+                  prefixIcon: Icons.lock,
+                  obscureText: true,
+                  textInputAction: TextInputAction.done,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                CustomButton(
+                  text: GymText.signup,
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      signup();
+                    }
+                  },
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      GymText.alreadyMember,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/signin');
+                      },
+                      child: const Text(
+                        GymText.loginNow,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

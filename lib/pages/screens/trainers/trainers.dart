@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -49,9 +48,7 @@ class _GymTrainersState extends State<GymTrainers> {
 
   Future<void> update(
       [DocumentSnapshot? documentSnapshot, DateTime? existingDate]) async {
-    if (kDebugMode) {
-      print('Update function called');
-    }
+    print('Update function called');
     if (documentSnapshot != null) {
       nameController.text = documentSnapshot['name'];
       ageController.text = documentSnapshot['age'].toString();
@@ -131,8 +128,9 @@ class _GymTrainersState extends State<GymTrainers> {
                       mobileController.clear();
                       dateController.clear();
                       salaryController.clear();
-                      if (!mounted) return;
-                      Navigator.pop(context);
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                      }
                     },
                   ),
                   const SizedBox(height: 10),

@@ -100,17 +100,27 @@ class _MainPageState extends State<MainPage> {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              UserAccountsDrawerHeader(
-                                accountName: Text(
-                                  data['owner'],
-                                  style: _style1,
+                              SizedBox(
+                                height: 260,
+                                child: UserAccountsDrawerHeader(
+                                  currentAccountPicture: CircleAvatar(
+                                    child: Image.asset(
+                                      'assets/images/profile.png',
+                                    ),
+                                  ),
+                                  currentAccountPictureSize:
+                                      const Size.square(150),
+                                  accountName: Text(
+                                    data['owner'],
+                                    style: _style1,
+                                  ),
+                                  accountEmail: Text(
+                                    data['email'],
+                                    style: _style1,
+                                  ),
+                                  decoration:
+                                      const BoxDecoration(color: Colors.blue),
                                 ),
-                                accountEmail: Text(
-                                  data['email'],
-                                  style: _style1,
-                                ),
-                                decoration:
-                                    const BoxDecoration(color: Colors.blue),
                               ),
                               Padding(
                                 padding:
@@ -168,9 +178,7 @@ class _MainPageState extends State<MainPage> {
                   onTap: () async {
                     await _confirmSignOut();
                   },
-                  tileColor: Colors.blue,
-                  textColor: Colors.black,
-                  iconColor: Colors.black,
+                  tileColor: Colors.redAccent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
