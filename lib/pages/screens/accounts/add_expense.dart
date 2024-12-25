@@ -7,7 +7,7 @@ import '../../../utilities/custom_button.dart';
 import '../../../utilities/custom_textfield.dart';
 
 class AddExpenses extends StatefulWidget {
-  const AddExpenses({Key? key}) : super(key: key);
+  const AddExpenses({super.key});
 
   @override
   State<AddExpenses> createState() => _AddExpensesState();

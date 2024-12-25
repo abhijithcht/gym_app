@@ -7,7 +7,7 @@ import '../../../utilities/custom_button.dart';
 import '../../../utilities/custom_textfield.dart';
 
 class AddEquipment extends StatefulWidget {
-  const AddEquipment({Key? key}) : super(key: key);
+  const AddEquipment({super.key});
 
   @override
   State<AddEquipment> createState() => _AddEquipmentState();

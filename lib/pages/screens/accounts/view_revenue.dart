@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../utilities/custom_slidable.dart';
 
 class ViewRevenue extends StatefulWidget {
-  const ViewRevenue({Key? key}) : super(key: key);
+  const ViewRevenue({super.key});
 
   @override
   State<ViewRevenue> createState() => _ViewRevenueState();

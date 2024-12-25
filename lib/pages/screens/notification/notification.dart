@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GymNotification extends StatefulWidget {
-  const GymNotification({Key? key}) : super(key: key);
+  const GymNotification({super.key});
 
   @override
   State<GymNotification> createState() => _GymNotificationState();

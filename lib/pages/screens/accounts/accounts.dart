@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../utilities/custom_button.dart';
 
 class GymAccounts extends StatefulWidget {
-  const GymAccounts({Key? key}) : super(key: key);
+  const GymAccounts({super.key});
 
   @override
   State<GymAccounts> createState() => _GymAccountsState();

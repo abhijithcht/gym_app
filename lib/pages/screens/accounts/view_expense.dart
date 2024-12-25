@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../utilities/custom_slidable.dart';
 
 class ViewExpenses extends StatefulWidget {
-  const ViewExpenses({Key? key}) : super(key: key);
+  const ViewExpenses({super.key});
 
   @override
   State<ViewExpenses> createState() => _ViewExpensesState();

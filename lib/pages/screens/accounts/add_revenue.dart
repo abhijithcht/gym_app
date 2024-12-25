@@ -7,7 +7,7 @@ import '../../../utilities/custom_button.dart';
 import '../../../utilities/custom_textfield.dart';
 
 class AddRevenue extends StatefulWidget {
-  const AddRevenue({Key? key}) : super(key: key);
+  const AddRevenue({super.key});
 
   @override
   State<AddRevenue> createState() => _AddRevenueState();

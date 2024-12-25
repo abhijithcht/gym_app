@@ -5,8 +5,8 @@ import '../../../utilities/custom_card.dart';
 
 class GymHome extends StatefulWidget {
   const GymHome({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<GymHome> createState() => _GymHomeState();

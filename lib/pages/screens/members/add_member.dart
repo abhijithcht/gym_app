@@ -7,7 +7,7 @@ import '../../../utilities/custom_button.dart';
 import '../../../utilities/custom_textfield.dart';
 
 class AddMember extends StatefulWidget {
-  const AddMember({Key? key}) : super(key: key);
+  const AddMember({super.key});
 
   @override
   State<AddMember> createState() => _AddMemberState();

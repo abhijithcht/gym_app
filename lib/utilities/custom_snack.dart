@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomSnackBar extends SnackBar {
-  CustomSnackBar({Key? key, required String message})
+  CustomSnackBar({super.key, required String message})
       : super(
-          key: key,
           content: Text(message),
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.black87,

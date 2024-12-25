@@ -9,7 +9,7 @@ import '../../../utilities/custom_slidable.dart';
 import '../../../utilities/custom_textfield.dart';
 
 class GymTrainers extends StatefulWidget {
-  const GymTrainers({Key? key}) : super(key: key);
+  const GymTrainers({super.key});
 
   @override
   State<GymTrainers> createState() => _GymTrainersState();

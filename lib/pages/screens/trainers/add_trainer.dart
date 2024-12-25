@@ -7,7 +7,7 @@ import '../../../utilities/custom_button.dart';
 import '../../../utilities/custom_textfield.dart';
 
 class AddTrainer extends StatefulWidget {
-  const AddTrainer({Key? key}) : super(key: key);
+  const AddTrainer({super.key});
 
   @override
   State<AddTrainer> createState() => _AddTrainerState();
